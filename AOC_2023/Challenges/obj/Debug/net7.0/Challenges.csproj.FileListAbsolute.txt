@@ -1,0 +1,13 @@
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\bin\Debug\net7.0\Challenges.deps.json
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\bin\Debug\net7.0\Challenges.dll
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\bin\Debug\net7.0\Challenges.pdb
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.csproj.AssemblyReference.cache
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.AssemblyInfoInputs.cache
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.AssemblyInfo.cs
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.csproj.CoreCompileInputs.cache
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.dll
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\refint\Challenges.dll
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\Challenges.pdb
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\obj\Debug\net7.0\ref\Challenges.dll
+C:\Users\oscar\Documents\GitHub\AOC_2023\AOC_2023\Challenges\bin\Debug\net7.0\Day1\input.txt
