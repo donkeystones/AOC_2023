@@ -11,7 +11,9 @@ namespace Challenges.Day2 {
             if(data == "") return 0;
             string[] data_arr = data.Split(": ");
             if (part_two) {
-                return PowerOfSmallest(data_arr[1]);
+                int res = PowerOfSmallest(data_arr[1]);
+                Console.WriteLine("Value: " + res);
+                return res;
             } else {
                 bool isValidGame = IsValidGame(data_arr[1]);
                 int roundNum = ParseGameNumber(data_arr[0]);
@@ -53,14 +55,14 @@ namespace Challenges.Day2 {
                 string[] cubes = round.Split(", ");
                 foreach (string cube in cubes) {
                     string[] cube_values = cube.Split(" ");
-                    if (game_summary.ContainsKey(cube_values[1]) && game_summary[cube_values[1]] < int.Parse(cube_values[0])) {
-                        Console.WriteLine("Adding smallest to " + cube_values[1] + " previous val: " + game_summary[cube_values[1]]);
-                        game_summary[cube_values[1]] = int.Parse(cube_values[0]);
+                    if (game_summary.ContainsKey(cube_values[1])) {
+                        if (game_summary[cube_values[1]] < int.Parse(cube_values[0]))
+                            game_summary[cube_values[1]] = int.Parse(cube_values[0]);
                     } else game_summary[cube_values[1]] = int.Parse(cube_values[0]);
                 }
             }
 
-
+            Console.WriteLine("blue: " + game_summary["blue"] + ", green: " + game_summary["green"] + ", red: " + game_summary["red"]);
             return game_summary["blue"] * game_summary["green"] * game_summary["red"];
         }
 

@@ -58,5 +58,14 @@ namespace Challenges_test.Day2 {
             int res = CubeConundrum.SolvePossibleGamesCubeValue(data, true);
             Assert.AreEqual(2286, res);
         }
+
+        [Test]
+        public void SolvePowerOfSmallestCubeWithRealData() {
+            string data = File.ReadAllText("Day2/input.txt");
+
+            int res = CubeConundrum.SolvePossibleGamesCubeValue(data, true);
+
+            Console.WriteLine(res);
+        }
     }
 }
