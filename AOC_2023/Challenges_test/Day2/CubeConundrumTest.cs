@@ -31,7 +31,7 @@ namespace Challenges_test.Day2 {
 
         [Test]
         public void ValidateGameWithMaxValue() {
-            string test_data = "Game 1: 1 blue, 1 red, 1 green; 11 red, 12 green, 13 blue";
+            string test_data = "Game 1: 1 blue, 1 red, 1 green; 12 red, 13 green, 14 blue";
             int res = CubeConundrum.SolveGame(test_data, false);
             Assert.AreEqual(1, res);
         }
