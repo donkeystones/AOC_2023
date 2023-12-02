@@ -42,8 +42,6 @@ namespace Challenges.Day2 {
                             return false;
                 }
             }
-
-
             return true;
         }
 
@@ -62,10 +60,8 @@ namespace Challenges.Day2 {
                 }
             }
 
-            Console.WriteLine("blue: " + game_summary["blue"] + ", green: " + game_summary["green"] + ", red: " + game_summary["red"]);
             return game_summary["blue"] * game_summary["green"] * game_summary["red"];
         }
-
 
         public static int SolvePossibleGamesCubeValue(string game_data, bool part_two) {
             string[] games = game_data.Split("\n");
