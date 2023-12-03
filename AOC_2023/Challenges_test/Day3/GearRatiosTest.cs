@@ -273,8 +273,7 @@ namespace Challenges_test.Day3 {
             char[,] schematic = GearRatios.ParseInputSchematic(data);
 
             int res = GearRatios.FindSumOfSchematicNumbers(schematic);
-            Console.WriteLine(res);
-            Assert.AreEqual(527494, res);
+            Assert.AreEqual(527364, res);
         }
 
         [Test]
