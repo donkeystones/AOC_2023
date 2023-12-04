@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -92,5 +93,75 @@ namespace Challenges.Day3 {
         public static int GetSchematicHeight(char[,] schematic) {
             return schematic.GetLength(0);
         }
+
+        public static int FindGearRatios(char[,] schematic) {
+            int sum = 0;
+            for(int y = 0; y < GetSchematicHeight(schematic); y++) {
+                for(int x = 0; x < GetSchematicWidth(schematic); x++) {
+                    if (schematic[y,x] == '*') {
+                        int[] digits = CheckForDigits(schematic, y, x);
+                        if (digits.Length == 2) sum += (digits[0] * digits[1]);
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        //This is a real lazy way of doing it,
+        //but my mind is fried from part 1 so this is the best you'll get
+        private static int[] CheckForDigits(char[,] schematic, int y, int x) {
+            List<int> nums = new List<int>();
+
+            if (Char.IsDigit(schematic[y - 1, x])) //CheckTop
+                nums.Add(ParseDigitToGear(schematic, y - 1, x));
+
+            if(Char.IsDigit(schematic[y - 1, x - 1])) // Check Top Left
+                nums.Add(ParseDigitToGear(schematic, y - 1, x - 1));
+            
+            if (Char.IsDigit(schematic[y - 1, x + 1])) // Check Top Right
+                nums.Add(ParseDigitToGear(schematic, y - 1, x + 1));
+            
+            if (Char.IsDigit(schematic[y + 1, x])) //CheckBottom
+                nums.Add(ParseDigitToGear(schematic, y + 1, x));
+            
+            if (Char.IsDigit(schematic[y + 1, x - 1])) // Check Bottom Left
+                nums.Add(ParseDigitToGear(schematic, y + 1, x - 1));
+            
+            if (Char.IsDigit(schematic[y + 1, x + 1])) // Check Bottom Right
+                nums.Add(ParseDigitToGear(schematic, y + 1, x + 1));
+            
+            if (Char.IsDigit(schematic[y, x - 1])) // Left
+                nums.Add(ParseDigitToGear(schematic, y, x - 1));
+            
+            if (Char.IsDigit(schematic[y, x + 1])) // Right
+                nums.Add(ParseDigitToGear(schematic, y, x + 1));
+
+            nums = nums.Distinct().ToList();// remove duplicates
+
+            return nums.ToArray();
+        }
+
+        private static int ParseDigitToGear(char[,] schematic, int y, int x) {
+            int beginning_x = GetBeginningXCoor(schematic, y, x);
+            return GetWholeDigit(
+                        schematic
+                        , y
+                        , beginning_x
+                        , GetDigitSize(
+                            schematic
+                            , y
+                            , beginning_x));
+        }
+
+        private static int GetBeginningXCoor(char[,] schematic, int y, int x) {
+            for (int pointer = x-1; pointer >= 0; pointer--) {
+                if (!Char.IsDigit(schematic[y, pointer])) return pointer + 1;
+                if (pointer == 0) return 0;
+            }
+
+            return x;
+        }
+
     }
 }

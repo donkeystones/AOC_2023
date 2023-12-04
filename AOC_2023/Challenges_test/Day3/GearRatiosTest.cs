@@ -286,5 +286,53 @@ namespace Challenges_test.Day3 {
             Assert.AreEqual(100, res);
         }
 
+        [Test]
+        public void FindGearRatioOfHundredTen() {
+            string data = ".11.\n" +
+                          "..*.\n" +
+                          "..10\n" +
+                          "....\n";
+
+            char[,] schematic = GearRatios.ParseInputSchematic(data);
+
+            int res = GearRatios.FindGearRatios(schematic);
+
+            Assert.AreEqual(110, res);
+        }
+
+        [Test]
+        public void FindGearRatioOfHundredTwenty() {
+            string data = "..12\n" +
+                          "..*.\n" +
+                          "10..\n" +
+                          "....\n";
+
+            char[,] schematic = GearRatios.ParseInputSchematic(data);
+
+            int res = GearRatios.FindGearRatios(schematic);
+
+            Assert.AreEqual(120, res);
+        }
+
+        [Test]
+        public void TestDataPart2() {
+            string data = "467..114..\r\n...*......\r\n..35..633.\r\n......#...\r\n617*......\r\n.....+.58.\r\n..592.....\r\n......755.\r\n...$.*....\r\n.664.598..";
+            char[,] schematic = GearRatios.ParseInputSchematic(data);
+
+            int res = GearRatios.FindGearRatios(schematic);
+
+            Assert.AreEqual(467835, res);
+        }
+
+        [Test]
+        public void Part2() {
+            string data = File.ReadAllText("Day3/input.txt");
+
+            char[,] schematic = GearRatios.ParseInputSchematic(data);
+
+            int res = GearRatios.FindGearRatios(schematic);
+            Assert.AreEqual(79026871, res);
+        }
+
     }
 }
