@@ -29,7 +29,8 @@ namespace Challenges_test.Day5 {
         [Test] public void Part2testdata() {
             string data = File.ReadAllText("Day5/testdata.txt");
 
-            BigInteger res = AlmanacParser.GetLowestPart2(data);
+            BigInteger res = AlmanacParser.GetLowestPart2version2(data);
+            Console.WriteLine(res);
             Assert.IsTrue(new BigInteger(46).Equals(res));
         }
 
@@ -37,8 +38,8 @@ namespace Challenges_test.Day5 {
         public void Part2() {
             string data = File.ReadAllText("Day5/input.txt");
 
-            BigInteger res = AlmanacParser.GetLowestPart2(data);
-            Console.WriteLine(res.ToString());
+            //BigInteger res = AlmanacParser.GetLowestPart2(data);
+            //Console.WriteLine(res.ToString());
         }
     }
 }

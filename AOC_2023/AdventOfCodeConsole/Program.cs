@@ -4,8 +4,8 @@ using System.Numerics;
 
 var watch = System.Diagnostics.Stopwatch.StartNew();
 
-string data = File.ReadAllText("day5.txt");
-BigInteger res = AlmanacParser.GetLowestPart2(data);
+string data = File.ReadAllText("input.txt");
+BigInteger res = AlmanacParser.GetLowestPart2version2(data);
 Console.WriteLine(res);
 watch.Stop();
 TimeSpan t = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds);

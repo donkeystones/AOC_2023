@@ -12,10 +12,13 @@ namespace Challenges.Day5 {
             data = data.Replace("\r", "");
             string[] data_arr = data.Split("\n");
 
-            BigInteger[] seeds = data_arr[0].Split(": ")[1].Split(" ")
-                                        .Where(x => int.TryParse(x, out _))
-                                        .Select(BigInteger.Parse)
-                                        .ToArray();
+            string[] skrap = data_arr[0].Split(": ")[1].Split(" ");
+
+            List<BigInteger> seeds = new List<BigInteger>();
+
+            foreach(string s in skrap) {
+                seeds.Add(BigInteger.Parse(s));
+            }
 
             RangeType[] ranges = GetRanges(data_arr);
 
@@ -33,13 +36,16 @@ namespace Challenges.Day5 {
             data = data.Replace("\r", "");
             string[] data_arr = data.Split("\n");
 
-            BigInteger[] seeds = data_arr[0].Split(": ")[1].Split(" ")
-                                        .Where(x => int.TryParse(x, out _))
-                                        .Select(BigInteger.Parse)
-                                        .ToArray();
+            string[] skrap = data_arr[0].Split(": ")[1].Split(" ");
+
+            List<BigInteger> seeds = new List<BigInteger>();
+
+            foreach (string s in skrap) {
+                seeds.Add(BigInteger.Parse(s));
+            }
 
             RangeType[] ranges = GetRanges(data_arr);
-            for (int i = 0; i < seeds.Length; i += 2) {
+            for (int i = 0; i < seeds.Count; i += 2) {
                 BigInteger min, max;
                 min = seeds[i];
                 max = seeds[i] + seeds[i + 1];
@@ -58,21 +64,38 @@ namespace Challenges.Day5 {
             data = data.Replace("\r", "");
             string[] data_arr = data.Split("\n");
 
-            BigInteger[] seeds = data_arr[0].Split(": ")[1].Split(" ")
-                                        .Where(x => int.TryParse(x, out _))
-                                        .Select(BigInteger.Parse)
-                                        .ToArray();
-
             RangeType[] ranges = GetRanges(data_arr);
-            for (int i = 0; i < seeds.Length; i += 2) {
-                BigInteger min, max;
-                min = seeds[i];
-                max = seeds[i] + seeds[i + 1];
-                Console.WriteLine("Checking: " + min + " - " + max);
-                for (BigInteger j = min; j <= max; j++) {
-                    BigInteger new_loc = GetLoc(j, ranges);
-                    if (loc == -1) loc = new_loc;
-                    else if (loc > new_loc) loc = new_loc;
+
+            string[] skrap = data_arr[0].Split(": ")[1].Split(" ");
+
+            List<BigInteger> seeds = new List<BigInteger>();
+
+            foreach (string s in skrap) {
+                seeds.Add(BigInteger.Parse(s));
+            }
+
+            for (BigInteger i = 0; i < 100000000000; i++) {
+                BigInteger seed = GetSeed(i, ranges);
+                Console.WriteLine("location: " + i + " == " + seed);
+                if (CheckSeedRanges(seed, seeds.ToArray())) return i;
+            }
+            return -1;
+        }
+
+        public static bool CheckSeedRanges(BigInteger seed, BigInteger[] seeds) {
+            for(int i = 0; i < seeds.Length; i+=2) {
+                if(seed >= seeds[i] && seed < seeds[i] + seeds[i+1]) return true;
+            }
+            return false;
+        }
+
+        private static BigInteger GetSeed(BigInteger loc, RangeType[] ranges) {
+            for(int range = ranges.Length - 1; range >= 0; range--) {
+                foreach(Map map in ranges[range].maps) {
+                    if (loc >= map.destination_id && loc < map.destination_id + map.range_length) {
+                        loc = (map.source_id - map.destination_id) + loc;
+                        break;
+                    }
                 }
             }
             return loc;
