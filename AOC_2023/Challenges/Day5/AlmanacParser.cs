@@ -9,7 +9,7 @@ namespace Challenges.Day5 {
     public class AlmanacParser {
         public static BigInteger GetLowestPart1(string data) {
             BigInteger loc = -1;
-
+            data = data.Replace("\r", "");
             string[] data_arr = data.Split("\n");
 
             BigInteger[] seeds = data_arr[0].Split(": ")[1].Split(" ")
@@ -27,9 +27,58 @@ namespace Challenges.Day5 {
 
             return loc;
         }
+
+        public static BigInteger GetLowestPart2(string data) {
+            BigInteger loc = -1;
+            data = data.Replace("\r", "");
+            string[] data_arr = data.Split("\n");
+
+            BigInteger[] seeds = data_arr[0].Split(": ")[1].Split(" ")
+                                        .Where(x => int.TryParse(x, out _))
+                                        .Select(BigInteger.Parse)
+                                        .ToArray();
+
+            RangeType[] ranges = GetRanges(data_arr);
+            for (int i = 0; i < seeds.Length; i += 2) {
+                BigInteger min, max;
+                min = seeds[i];
+                max = seeds[i] + seeds[i + 1];
+                Console.WriteLine("Checking: " + min + " - " + max);
+                for (BigInteger j = min; j <= max; j++) {
+                    BigInteger new_loc = GetLoc(j, ranges);
+                    if (loc == -1) loc = new_loc;
+                    else if (loc > new_loc) loc = new_loc;
+                }
+            }
+            return loc;
+        }
+
+        public static BigInteger GetLowestPart2version2(string data) {
+            BigInteger loc = -1;
+            data = data.Replace("\r", "");
+            string[] data_arr = data.Split("\n");
+
+            BigInteger[] seeds = data_arr[0].Split(": ")[1].Split(" ")
+                                        .Where(x => int.TryParse(x, out _))
+                                        .Select(BigInteger.Parse)
+                                        .ToArray();
+
+            RangeType[] ranges = GetRanges(data_arr);
+            for (int i = 0; i < seeds.Length; i += 2) {
+                BigInteger min, max;
+                min = seeds[i];
+                max = seeds[i] + seeds[i + 1];
+                Console.WriteLine("Checking: " + min + " - " + max);
+                for (BigInteger j = min; j <= max; j++) {
+                    BigInteger new_loc = GetLoc(j, ranges);
+                    if (loc == -1) loc = new_loc;
+                    else if (loc > new_loc) loc = new_loc;
+                }
+            }
+            return loc;
+        }
         //(Destination - Source) + seed = soil location
         private static BigInteger GetLoc(BigInteger seed, RangeType[] ranges) {
-            Console.WriteLine("Seed: " + seed);
             for(int range = 0; range < ranges.Length; range++) {
                 foreach(Map map in ranges[range].maps) {
                     if(seed >= map.source_id && seed < map.source_id + map.range_length) { //If sourcerange is within current seed
@@ -37,8 +86,6 @@ namespace Challenges.Day5 {
                         break;
                     }
                 }
-                Console.WriteLine("Seed after " + range + " map: " + seed);
-
             }
             return seed;
         }
