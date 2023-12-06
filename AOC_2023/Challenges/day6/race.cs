@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Challenges.day6 {
-    public class race {
+    public class Race {
         public static BigInteger Part1(string data) {
             List<int[]> data_list = new List<int[]>();
             foreach(string s in data.Split("\n")) {
