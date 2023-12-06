@@ -19,14 +19,14 @@ namespace Challenges.day6 {
             }
             BigInteger sum = 1;
             for(int i = 0; i <  data_list[1].Length; i++) {
-                sum *= CalculateWins(data_list[0][i], data_list[1][i]);
+                sum *= CalculateNumberOfSuccessfulStrategies(data_list[0][i], data_list[1][i]);
             }
             return sum;
         }
 
         public static BigInteger Part2(string data) {
             string[] data_arr = data.Split("\n");
-            BigInteger sum = CalculateWins(GetSumOfNumbers(data_arr[0].Split(": ")[1]), GetSumOfNumbers(data_arr[1].Split(": ")[1]));
+            BigInteger sum = CalculateNumberOfSuccessfulStrategies(GetSumOfNumbers(data_arr[0].Split(": ")[1]), GetSumOfNumbers(data_arr[1].Split(": ")[1]));
             return sum;
         }
 
@@ -40,6 +40,20 @@ namespace Challenges.day6 {
                 if ((ms - i) * i > record) sum++;
             }
             return sum;
+        }
+
+        private static BigInteger CalculateNumberOfSuccessfulStrategies(BigInteger ms, BigInteger record) {
+            BigInteger start = new BigInteger(0);
+            BigInteger end = ms;
+            while (end - start > 1) {
+                var mid = (start + end) / 2;
+                if (mid * (ms - mid) > record)
+                    end = mid;
+                else
+                    start = mid;
+            }
+
+            return ms - start - start - 1;
         }
     }
 }
