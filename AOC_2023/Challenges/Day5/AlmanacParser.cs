@@ -30,7 +30,7 @@ namespace Challenges.Day5 {
 
             return loc;
         }
-
+        //Time: 02h:46m:20s:012ms
         public static BigInteger GetLowestPart2(string data) {
             BigInteger loc = -1;
             data = data.Replace("\r", "");
@@ -58,7 +58,7 @@ namespace Challenges.Day5 {
             }
             return loc;
         }
-
+        //about 5 min
         public static BigInteger GetLowestPart2version2(string data) {
             BigInteger loc = -1;
             data = data.Replace("\r", "");
@@ -76,7 +76,7 @@ namespace Challenges.Day5 {
 
             for (BigInteger i = 0; i < 100000000000; i++) {
                 BigInteger seed = GetSeed(i, ranges);
-                Console.WriteLine("location: " + i + " == " + seed);
+                
                 if (CheckSeedRanges(seed, seeds.ToArray())) return i;
             }
             return -1;
