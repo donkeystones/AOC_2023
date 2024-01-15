@@ -219,6 +219,28 @@ namespace Challenges_test.day7 {
             Assert.IsFalse(CamelCard.CheckHighCard(hand));
         }
 
+        [Test]
+        public void CategorizeCards() {
+            string hands = "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483";
+
+            CategorizedHandTypeList catList = CamelCard.CategorizeCards(hands);
+
+            Assert.AreEqual(0, catList.HighCard.Count);
+            Assert.AreEqual(1, catList.OnePair.Count);
+            Assert.AreEqual(2, catList.TwoPair.Count);
+            Assert.AreEqual(2, catList.ThreeOfKind.Count);
+            Assert.AreEqual(0, catList.FullHouse.Count);
+            Assert.AreEqual(0, catList.FourOfKind.Count);
+            Assert.AreEqual(0, catList.FiveOfKind.Count);
+        }
+
+        [Test]
+        public void SortCategorizedHandTypeLists() {
+            string hands = "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483";
+
+            CategorizedHandTypeList catList = CamelCard.CategorizeCards(hands);
+            catList = CamelCard.SortCategorizedHandTypeLists(catList);
+        }
         
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,31 @@ namespace Challenges.day7 {
         OnePair = 2,
         HighCard = 1,
         NoType
+    }
+    public class Hand {
+        public HandType type { get; set; }
+        public string hand { get; set; }
+        public int bid { get; set; }
+    }
+    public class CategorizedHandTypeList {
+        public List<Hand> FiveOfKind { get; set; }
+        public List<Hand> FourOfKind { get; set; }
+        public List<Hand> FullHouse { get; set; }
+        public List<Hand> ThreeOfKind { get; set; }
+        public List<Hand> TwoPair { get; set; }
+        public List<Hand> OnePair { get; set; }
+        public List<Hand> HighCard { get; set; }
+
+        public CategorizedHandTypeList()
+        {
+            FiveOfKind = new List<Hand>();
+            FourOfKind = new List<Hand>();
+            FullHouse = new List<Hand>();
+            ThreeOfKind = new List<Hand>();
+            TwoPair = new List<Hand>();
+            OnePair = new List<Hand>();
+            HighCard = new List<Hand>();
+        }
     }
     public class CamelCard {
         private static char[] labels = { '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' };
@@ -90,6 +116,58 @@ namespace Challenges.day7 {
 
         public static int GetLabelValue(char label) {
             return Array.IndexOf(labels, label);
+        }
+
+        public static CategorizedHandTypeList CategorizeCards(string hands)
+        {
+            string[] hands_arr = hands.Split('\n');
+            CategorizedHandTypeList catList = new CategorizedHandTypeList();
+            foreach(string hand in hands_arr)
+            {
+                string[] hand_arr = hand.Split(" ");
+                Hand curr = new Hand()
+                {
+                    hand = hand_arr[0],
+                    bid = int.Parse(hand_arr[1]),
+                    type = GetHandType(hand_arr[0])
+                };
+                catList = InsertToRightHandCategoryList(curr, catList);
+            }
+
+            return catList;
+        }
+
+        public static CategorizedHandTypeList InsertToRightHandCategoryList(Hand hand, CategorizedHandTypeList catList) {
+            switch(hand.type)
+            {
+                case HandType.HighCard: 
+                    catList.HighCard.Add(hand); 
+                    break;
+                case HandType.OnePair:
+                    catList.OnePair.Add(hand);
+                    break;
+                case HandType.TwoPair:
+                    catList.TwoPair.Add(hand);
+                    break;
+                case HandType.ThreeOfAKind:
+                    catList.ThreeOfKind.Add(hand);
+                    break;
+                case HandType.FullHouse:
+                    catList.FullHouse.Add(hand);
+                    break;
+                case HandType.FourOfAKind:
+                    catList.FourOfKind.Add(hand);
+                    break;
+                case HandType.FiveOfAKind:
+                    catList.FiveOfKind.Add(hand);
+                    break;
+            }
+            return catList;
+        }
+
+        public static CategorizedHandTypeList SortCategorizedHandTypeLists(CategorizedHandTypeList catList)
+        {
+            
         }
     }
 }
