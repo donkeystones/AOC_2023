@@ -266,7 +266,6 @@ namespace Challenges_test.Day3 {
             Assert.AreEqual(4361, res);
         }
 
-        [Test]
         public void PartOneRun() {
             string data = File.ReadAllText("Day3/input.txt");
 

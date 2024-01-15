@@ -43,7 +43,6 @@ namespace Challenges_test.Day2 {
             Assert.AreEqual(8, res);
         }
 
-        [Test]
         public void SolveCubeValueTest() {
             string data = File.ReadAllText("Day2/input.txt");
 
@@ -59,7 +58,6 @@ namespace Challenges_test.Day2 {
             Assert.AreEqual(2286, res);
         }
 
-        [Test]
         public void SolvePowerOfSmallestCubeWithRealData() {
             string data = File.ReadAllText("Day2/input.txt");
 

@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenges", "Challenges\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenges_test", "Challenges_test\Challenges_test.csproj", "{A4D0E51C-0B96-4756-861D-447BC2900491}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeConsole", "AdventOfCodeConsole\AdventOfCodeConsole.csproj", "{0398E3CF-BA61-4176-9C47-40C55D721BA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeConsole", "AdventOfCodeConsole\AdventOfCodeConsole.csproj", "{0398E3CF-BA61-4176-9C47-40C55D721BA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
