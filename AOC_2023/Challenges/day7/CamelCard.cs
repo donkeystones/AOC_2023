@@ -87,10 +87,10 @@ namespace Challenges.day7 {
         }
 
         public static bool CheckHighCard(string hand) {
-            int last = int.Parse(hand[0].ToString());
+            char last = hand[0];
             for(int i = 1; i < hand.Length; i++) {
-                Console.WriteLine("last + i = " + (last + i) + " hand[i] = " + hand[i]);
-                if (!hand[i].ToString().Equals((last+i).ToString())) return false;
+                if (!(GetLabelValue(hand[i]) == GetLabelValue(last) + 1)) return false;
+                last = hand[i];
             }
 
             return true;
@@ -120,7 +120,8 @@ namespace Challenges.day7 {
 
         public static CategorizedHandTypeList CategorizeCards(string hands)
         {
-            string[] hands_arr = hands.Split('\n');
+            
+            string[] hands_arr = hands.Split("\r\n");
             CategorizedHandTypeList catList = new CategorizedHandTypeList();
             foreach(string hand in hands_arr)
             {
@@ -165,9 +166,90 @@ namespace Challenges.day7 {
             return catList;
         }
 
+        public static int GetGreaterValue(Hand a, Hand b)
+        {
+            char[] a_arr = a.hand.ToCharArray();
+            char[] b_arr = b.hand.ToCharArray();
+            for(int i = 0; i < a_arr.Length; i++)
+            {
+                if (a_arr[i] != b_arr[i])
+                {
+                    if (GetLabelValue(a_arr[i]) > GetLabelValue(b_arr[i])) return 1;
+                    else return -1;
+                }
+            }
+            return 0;
+        }
+
+        public static List<Hand> SortHandsStrongestToWeakest(List<Hand> handList) {
+            List<Hand> temp = handList;
+            temp.Sort(GetGreaterValue);
+            return temp;
+        }
+
         public static CategorizedHandTypeList SortCategorizedHandTypeLists(CategorizedHandTypeList catList)
         {
-            
+            catList.HighCard = SortHandsStrongestToWeakest(catList.HighCard);
+            catList.OnePair = SortHandsStrongestToWeakest(catList.OnePair);
+            catList.TwoPair = SortHandsStrongestToWeakest(catList.TwoPair);
+            catList.ThreeOfKind = SortHandsStrongestToWeakest(catList.ThreeOfKind);
+            catList.FullHouse = SortHandsStrongestToWeakest(catList.FullHouse);
+            catList.FourOfKind = SortHandsStrongestToWeakest(catList.FourOfKind);
+            catList.FiveOfKind = SortHandsStrongestToWeakest(catList.FiveOfKind);
+            return catList;
+        }
+
+        public static int CalculateTotalWinnings(CategorizedHandTypeList catList)
+        {
+            int totalWinnings = 0;
+            int currentRank = 1;
+            if (catList.HighCard.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.HighCard, currentRank);
+                currentRank += catList.HighCard.Count;
+            }
+            if (catList.OnePair.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.OnePair, currentRank);
+                currentRank += catList.OnePair.Count;
+            }
+            if (catList.TwoPair.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.TwoPair, currentRank);
+                currentRank += catList.TwoPair.Count;
+            }
+            if (catList.ThreeOfKind.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.ThreeOfKind, currentRank);
+                currentRank += catList.ThreeOfKind.Count;
+            }
+            if (catList.FullHouse.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.FullHouse, currentRank);
+                currentRank += catList.FullHouse.Count;
+            }
+            if (catList.FourOfKind.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.FourOfKind, currentRank);
+                currentRank += catList.FourOfKind.Count;
+            }
+            if (catList.FiveOfKind.Count > 0)
+            {
+                totalWinnings += GetWinningsFromList(catList.FiveOfKind, currentRank);
+            }
+
+            return totalWinnings;
+        }
+
+        public static int GetWinningsFromList(List<Hand> hands, int currentRank)
+        {
+            int total = 0;
+            for(int i = 0; i < hands.Count; i++)
+            {
+                Console.WriteLine("Check winnings for: " + hands[i].hand + " " + hands[i].bid + ", Type: " + hands[i].type.ToString());
+                total += hands[i].bid * (i + currentRank);
+            }
+            return total;
         }
     }
 }

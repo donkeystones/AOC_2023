@@ -213,6 +213,14 @@ namespace Challenges_test.day7 {
         }
 
         [Test]
+        public void CheckHighCardReturnsTrueOnlyLetters()
+        {
+            string hand = "TJQKA";
+
+            Assert.IsTrue(CamelCard.CheckHighCard(hand));
+        }
+
+        [Test]
         public void CheckHighCardReturnsFalse() {
             string hand = "24569";
 
@@ -221,7 +229,7 @@ namespace Challenges_test.day7 {
 
         [Test]
         public void CategorizeCards() {
-            string hands = "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483";
+            string hands = "32T3K 765\r\nT55J5 684\r\nKK677 28\r\nKTJJT 220\r\nQQQJA 483";
 
             CategorizedHandTypeList catList = CamelCard.CategorizeCards(hands);
 
@@ -236,11 +244,41 @@ namespace Challenges_test.day7 {
 
         [Test]
         public void SortCategorizedHandTypeLists() {
-            string hands = "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483";
+            string hands = "32T3K 765\r\nT55J5 684\r\nKK677 28\r\nKTJJT 220\r\nQQQJA 483";
 
             CategorizedHandTypeList catList = CamelCard.CategorizeCards(hands);
             catList = CamelCard.SortCategorizedHandTypeLists(catList);
+
+            Assert.AreEqual("32T3K", catList.OnePair[0].hand);
+            Assert.AreEqual("KTJJT", catList.TwoPair[0].hand);
+            Assert.AreEqual("KK677", catList.TwoPair[1].hand);
+            Assert.AreEqual("T55J5", catList.ThreeOfKind[0].hand);
+            Assert.AreEqual("QQQJA", catList.ThreeOfKind[1].hand);
         }
-        
+
+        [Test]
+        public void GetTotalWinnings()
+        {
+            string hands = "32T3K 765\r\nT55J5 684\r\nKK677 28\r\nKTJJT 220\r\nQQQJA 483";
+
+            CategorizedHandTypeList catList = CamelCard.CategorizeCards(hands);
+            catList = CamelCard.SortCategorizedHandTypeLists(catList);
+
+            int total_winning = CamelCard.CalculateTotalWinnings(catList);
+
+            Assert.AreEqual(6440, total_winning);
+        }
+
+        [Test]
+        public void GetTotalWinningsPart1() {
+            string data = File.ReadAllText("day7/input.txt");
+
+            CategorizedHandTypeList catList = CamelCard.CategorizeCards(data);
+            catList = CamelCard.SortCategorizedHandTypeLists(catList);
+
+            int total_winning = CamelCard.CalculateTotalWinnings(catList);
+            Assert.AreEqual(250370104, total_winning);
+        }
+
     }
 }
